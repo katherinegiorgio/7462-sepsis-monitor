@@ -8,8 +8,25 @@ format: html
 library(tidyverse)
 library(data.table) ## For the fread function
 library(lubridate)
+library(googledrive)
 
 source("sepsis_monitor_functions.R")
 
+# authenticating Google Drive connection
+drive_auth(email = "giorg024@umn.edu",
+           path = "C:\\Users\\kathe\\OneDrive\\Desktop\\04 Advanced R\\Code - Git\\7462-sepsis-monitor\\googledrive_apikey.txt")
+
+# initialize patients
 df <- initializePatients()
+
+# We have to write the file to disk first, then upload it
+df %>% write_csv("sepsis_report_temp.csv")
+
+# Uploading happens here
+drive_put(media = "sepsis_report_temp.csv",  
+          path = "https://drive.google.com/drive/folders/1bw6XgCMdGh1DyMIGOm1mPTTDP5rtny5W?usp=share_link",
+          name = "sepsis_report.csv")
+
+
+
 ```
