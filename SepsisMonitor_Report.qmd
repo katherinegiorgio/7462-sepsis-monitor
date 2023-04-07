@@ -15,7 +15,7 @@ library(tictoc)
 source("sepsis_monitor_functions.R")
 ```
 
-```{r task1}
+```{r task2}
 #| eval: false
 
 ### Task 1: Speed reading
