@@ -1,5 +1,5 @@
 ---
-title: "Sepsis Monitor"
+title: "Sepsis Monitor Report"
 author: "Katherine Giorgio"
 format: html
 ---
@@ -7,6 +7,7 @@ format: html
 ```{r setup}
 #| warning: false
 #| message: false
+#| echo: false
 
 library(tidyverse)
 library(data.table) ## For the fread function
@@ -16,6 +17,8 @@ library(gt)
 library(tictoc)
 
 source("sepsis_monitor_functions.R")
+
+df <- makeSepsisDataset()
 ```
 
 ```{r task2}
@@ -63,8 +66,6 @@ toc()
  #          path = "C:\\Users\\kathe\\OneDrive\\Desktop\\04 Advanced R\\Code - Git\\7462-sepsis-monitor\\googledrive_apikey.txt")
 
 
-df <- makeSepsisDataset()
-
 # We have to write the file to disk first, then upload it
 df %>% write_csv("sepsis_data_temp.csv")
 
@@ -82,6 +83,8 @@ sepsis_file %>% drive_share_anyone()
 ```{r task4}
 #| eval: false
 
+##### eventually you can combine this chunk with the one below to complete task 4
+
 ### Making the HTML ICU sepsis status report
 
 ### Step 1: getting the data from google drive
@@ -98,8 +101,9 @@ new_data <- updateData(file_link)
 most_recent_data <- new_data %>%
   group_by(PatientID) %>%
   filter(obsTime == max(obsTime))
+```
 
-
+```{r}
 ### Step 2: make table of current sepsis patients with their most recent HR, Temp, and Resp
 # IMPORTANT: delete this first step (it is done above) once you figure out the google drive thing
 most_recent_data <- df %>%
@@ -120,7 +124,7 @@ CurrentSepsisTable <- most_recent_data %>%
   cols_align(align="center")
 
 
-### Step 3: plots for all patients who have sepsis that show their vital signs history
+### Step 3: make plots for all patients who have sepsis that show their vital signs history
 ### IMPORTANT: using df for now and assigning it to new_data, but delete this step once you figure out google drive
 new_data <- df
 
@@ -138,11 +142,31 @@ VitalsPlots <- new_data %>%
   facet_wrap(~PatientID) +
   labs(x = "Hours Since Admission",
        y = "Vital Sign Value",
+       title = "Vital Signs Trends for Current Sepsis Patients",
        color = "Legend") +
   scale_color_manual(values = colors) +
   theme_light()
 
+
+### Step 4: make a table showing the change in measurements between the last two measurements for all patients
+
+# this should look kind of like the first table but with some data wrangling beforehand
 ```
 
+last updated: `r Sys.time()`  
+  
+```{r}
+CurrentSepsisTable
+```
 
-#### Report last udpated: `r Sys.time()`
+```{r}
+#| warning: false
+
+VitalsPlots
+```
+
+```{r}
+#| eval: false
+
+ChangeTable
+```
