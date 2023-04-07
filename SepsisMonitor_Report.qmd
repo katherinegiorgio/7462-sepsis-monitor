@@ -14,7 +14,7 @@ library(data.table) ## For the fread function
 library(lubridate)
 library(googledrive)
 library(gt)
-library(tictoc)
+#library(tictoc)
 
 source("sepsis_monitor_functions.R")
 
@@ -57,22 +57,17 @@ toc()
 ```
 
 ```{r task3}
-#| eval: false
 
 ### Uploading to Google Drive
-
-# authenticating Google Drive connection ---- this doesn't seem to solve the problem... leaving it here for now though
-#drive_auth(email = "giorg024@umn.edu",
- #          path = "C:\\Users\\kathe\\OneDrive\\Desktop\\04 Advanced R\\Code - Git\\7462-sepsis-monitor\\googledrive_apikey.txt")
-
 
 # We have to write the file to disk first, then upload it
 df %>% write_csv("sepsis_data_temp.csv")
 
 # Uploading happens here
 sepsis_file <- drive_put(media = "sepsis_data_temp.csv", 
-          path = "https://drive.google.com/drive/folders/1bw6XgCMdGh1DyMIGOm1mPTTDP5rtny5W?usp=sharing",
+          path = "https://drive.google.com/drive/folders/1bw6XgCMdGh1DyMIGOm1mPTTDP5rtny5W",
           name = "sepsis_data.csv")
+### note for future: I had to delete '?usp=sharing' from the end of the folder path in order for this to work
 
 # Set the file permissions so anyone can download this file.
 sepsis_file %>% drive_share_anyone()
@@ -81,9 +76,6 @@ sepsis_file %>% drive_share_anyone()
 
 
 ```{r task4}
-#| eval: false
-
-##### eventually you can combine this chunk with the one below to complete task 4
 
 ### Making the HTML ICU sepsis status report
 
@@ -92,7 +84,7 @@ sepsis_file %>% drive_share_anyone()
 ## Calling drive_deauth() prevents R from trying to authenticate via a browser
 ## This is needed to make the GitHub Action work
 drive_deauth()
-file_link <- "COPY YOUR LINK TO YOUR DRIVE FILE HERE"
+file_link <- "https://drive.google.com/file/d/1giyI7visQtm8V_sAt3N_AEuAvH9LYhmy/view?usp=share_link"
 
 ## All data up until now
 new_data <- updateData(file_link)
@@ -100,16 +92,12 @@ new_data <- updateData(file_link)
 ## Include only most recent data
 most_recent_data <- new_data %>%
   group_by(PatientID) %>%
-  filter(obsTime == max(obsTime))
-```
-
-```{r}
-### Step 2: make table of current sepsis patients with their most recent HR, Temp, and Resp
-# IMPORTANT: delete this first step (it is done above) once you figure out the google drive thing
-most_recent_data <- df %>%
-  group_by(PatientID) %>%
   filter(obsTime == max(obsTime)) %>% 
-  ungroup()  ### you added this in - might need to add above
+  ungroup()
+
+
+
+### Step 2: make table of current sepsis patients with their most recent vitals
 
 CurrentSepsisTable <- most_recent_data %>% 
   filter(SepsisLabel == 1) %>% 
@@ -124,9 +112,8 @@ CurrentSepsisTable <- most_recent_data %>%
   cols_align(align="center")
 
 
+
 ### Step 3: make plots for all patients who have sepsis that show their vital signs history
-### IMPORTANT: using df for now and assigning it to new_data, but delete this step once you figure out google drive
-new_data <- df
 
 colors <- c("Heart Rate (bpm)" = "darkred",
             "Temperature (C)" = "darkblue",
@@ -148,9 +135,33 @@ VitalsPlots <- new_data %>%
   theme_light()
 
 
+
 ### Step 4: make a table showing the change in measurements between the last two measurements for all patients
 
 # this should look kind of like the first table but with some data wrangling beforehand
+
+#new_data has all info up until now, so that's probably the most useful
+
+ChangeTable <- new_data %>% 
+  group_by(PatientID) %>% 
+  mutate(HRchange = HR - lag(HR),
+         TEMPchange = Temp - lag(Temp),
+         RESPchange = Resp - lag(Resp)) %>% 
+  group_by(PatientID) %>%
+  filter(obsTime == max(obsTime)) %>% 
+  ungroup() %>% 
+  select(c(PatientID, HRchange, TEMPchange, RESPchange)) %>% 
+  gt() %>% 
+  tab_header(title = "Vital Sign Values, Change Since Last Measurement",
+             subtitle = "(all patients)") %>% 
+  cols_label(PatientID = "Patient ID",
+             HRchange = "Change in Heart Rate",
+             TEMPchange = "Change in Body Temperature",
+             RESPchange = "Change in Respiratory Rate") %>% 
+  cols_align(align="center") %>% 
+  data_color(columns=endsWith("change"),
+             method = "numeric",
+             )
 ```
 
 last updated: `r Sys.time()`  
@@ -166,7 +177,5 @@ VitalsPlots
 ```
 
 ```{r}
-#| eval: false
-
 ChangeTable
 ```
