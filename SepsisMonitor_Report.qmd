@@ -10,10 +10,48 @@ library(data.table) ## For the fread function
 library(lubridate)
 library(googledrive)
 library(gt)
+library(tictoc)
 
 source("sepsis_monitor_functions.R")
+```
 
-# authenticating Google Drive connection
+```{r task1}
+#| eval: false
+
+### Task 1: Speed reading
+# fread with 50 people (this is the function default) = 10.61 s
+tic()
+df <- makeSepsisDataset(n=50, read_fn="fread")
+toc()
+
+# read_delim with 50 people = 21.22 s
+tic()
+df <- makeSepsisDataset(n=50, read_fn="read_delim")
+toc()
+
+# fread with 100 people = 15.68 s
+tic()
+df <- makeSepsisDataset(n=100, read_fn="fread")
+toc()
+
+# read_delim with 100 people = 57.9 s
+tic()
+df <- makeSepsisDataset(n=100, read_fn="read_delim")
+toc()
+
+# fread with 500 people = 76.19 s
+tic()
+df <- makeSepsisDataset(n=500, read_fn="fread")
+toc()
+
+# read_delim with 500 people = "timeout was reached: [physionet.org] Connection timed out after 10007 milliseconds"
+tic()
+df <- makeSepsisDataset(n=500, read_fn="read_delim")
+toc()
+```
+
+
+# authenticating Google Drive connection ---- not sure if I should do this or not
 drive_auth(email = "giorg024@umn.edu",
            path = "C:\\Users\\kathe\\OneDrive\\Desktop\\04 Advanced R\\Code - Git\\7462-sepsis-monitor\\googledrive_apikey.txt")
 
@@ -24,6 +62,7 @@ df <- initializePatients()
 df %>% write_csv("sepsis_report_temp.csv")
 
 # Uploading happens here
+### right now using the "anyone with the link" option
 drive_put(media = "sepsis_report_temp.csv",  
           path = "https://drive.google.com/drive/folders/1bw6XgCMdGh1DyMIGOm1mPTTDP5rtny5W?usp=share_link",
           name = "sepsis_report.csv")
