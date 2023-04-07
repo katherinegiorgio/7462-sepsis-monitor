@@ -5,6 +5,9 @@ format: html
 ---
 
 ```{r setup}
+#| warning: false
+#| message: false
+
 library(tidyverse)
 library(data.table) ## For the fread function
 library(lubridate)
@@ -51,6 +54,7 @@ toc()
 ```
 
 ```{r task3}
+#| eval: false
 
 ### Uploading to Google Drive
 
@@ -75,7 +79,32 @@ sepsis_file %>% drive_share_anyone()
 
 
 
-```{r content}
+```{r task4}
+#| eval: false
+
+### Making the HTML ICU sepsis status report
+
+### Step 1: getting the data from google drive
+
+## Calling drive_deauth() prevents R from trying to authenticate via a browser
+## This is needed to make the GitHub Action work
+drive_deauth()
+file_link <- "COPY YOUR LINK TO YOUR DRIVE FILE HERE"
+
+## All data up until now
+new_data <- updateData(file_link)
+
+## Include only most recent data
+most_recent_data <- new_data %>%
+  group_by(PatientID) %>%
+  filter(obsTime == max(obsTime))
+
+
+### Step 2: 
+
+
+
+
 CurrentSepsisTable <- df %>% 
   #filter(SepsisLabel == 1) %>% 
   select(c(PatientID, HR, Temp, Resp)) %>% 
@@ -91,3 +120,4 @@ CurrentSepsisTable <- df %>%
 ```
 
 
+#### Report last udpated: `r Sys.time()`
