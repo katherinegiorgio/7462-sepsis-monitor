@@ -100,13 +100,15 @@ most_recent_data <- new_data %>%
   filter(obsTime == max(obsTime))
 
 
-### Step 2: 
+### Step 2: make table of current sepsis patients with their most recent HR, Temp, and Resp
+# IMPORTANT: delete this first step (it is done above) once you figure out the google drive thing
+most_recent_data <- df %>%
+  group_by(PatientID) %>%
+  filter(obsTime == max(obsTime)) %>% 
+  ungroup()  ### you added this in - might need to add above
 
-
-
-
-CurrentSepsisTable <- df %>% 
-  #filter(SepsisLabel == 1) %>% 
+CurrentSepsisTable <- most_recent_data %>% 
+  filter(SepsisLabel == 1) %>% 
   select(c(PatientID, HR, Temp, Resp)) %>% 
   gt() %>% 
   tab_header(title = "Sepsis Patients' Current Status",
@@ -116,6 +118,29 @@ CurrentSepsisTable <- df %>%
              Temp = "Body Temperature",
              Resp = "Respirations") %>% 
   cols_align(align="center")
+
+
+### Step 3: plots for all patients who have sepsis that show their vital signs history
+### IMPORTANT: using df for now and assigning it to new_data, but delete this step once you figure out google drive
+new_data <- df
+
+colors <- c("Heart Rate (bpm)" = "darkred",
+            "Temperature (C)" = "darkblue",
+            "Respiratory Rate (bpm)" = "darkgreen")
+
+VitalsPlots <- new_data %>% 
+  group_by(PatientID) %>% 
+  filter(sum(SepsisLabel) > 0) %>% 
+  ggplot(aes(x=ICULOS)) +
+  geom_line(aes(y=HR, color="Heart Rate (bpm)"), linewidth=1.5) +
+  geom_line(aes(y=Temp, color="Temperature (C)"), linewidth=1.5) +
+  geom_line(aes(y=Resp, color="Respiratory Rate (bpm)"), linewidth=1.5) +
+  facet_wrap(~PatientID) +
+  labs(x = "Hours Since Admission",
+       y = "Vital Sign Value",
+       color = "Legend") +
+  scale_color_manual(values = colors) +
+  theme_light()
 
 ```
 
