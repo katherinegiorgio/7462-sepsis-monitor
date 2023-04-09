@@ -46,6 +46,8 @@ jobs:
 
       - name: Render document
         uses: quarto-dev/quarto-actions/render@v2
+        env:
+          GOOGLEDIRVE_API: ${{ secrets.GOOGLEDRIVE_API }}
         with:
           to: html
           path: SepsisMonitor_Report.qmd
