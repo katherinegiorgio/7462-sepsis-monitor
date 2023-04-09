@@ -158,10 +158,7 @@ ChangeTable <- new_data %>%
              HRchange = "Change in Heart Rate",
              TEMPchange = "Change in Body Temperature",
              RESPchange = "Change in Respiratory Rate") %>% 
-  cols_align(align="center") %>% 
-  data_color(columns=endsWith("change"),
-             method = "numeric",
-             )
+  cols_align(align="center")
 ```
 
 last updated: `r Sys.time()`  
