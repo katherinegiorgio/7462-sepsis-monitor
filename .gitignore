@@ -2,6 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-.Renviron
-.csv
-googledrive_apikey.txt
+.Renviron.txt
+sepsis_data_temp.csv
+SepsisMonitor_Report_files/
