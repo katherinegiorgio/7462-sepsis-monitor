@@ -171,25 +171,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># We have to write the file to disk first, then upload it</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">write_csv</span>(<span class="st">"sepsis_data_temp.csv"</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Uploading happens here</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>sepsis_file <span class="ot">&lt;-</span> <span class="fu">drive_put</span>(<span class="at">media =</span> <span class="st">"sepsis_data_temp.csv"</span>, </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">path =</span> <span class="st">"https://drive.google.com/drive/folders/1bw6XgCMdGh1DyMIGOm1mPTTDP5rtny5W"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">name =</span> <span class="st">"sepsis_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#drive_deauth() not instructed to put this here</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Uploading happens here</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>sepsis_file <span class="ot">&lt;-</span> <span class="fu">drive_put</span>(<span class="at">media =</span> <span class="st">"sepsis_data_temp.csv"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">path =</span> <span class="st">"https://drive.google.com/drive/folders/1bw6XgCMdGh1DyMIGOm1mPTTDP5rtny5W"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">name =</span> <span class="st">"sepsis_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>! Using an auto-discovered, cached token.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>  To suppress this message, modify your code or options to clearly consent to
-  the use of a cached token.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>  See gargle's "Non-interactive auth" vignette for more details:</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>  &lt;https://gargle.r-lib.org/articles/non-interactive-auth.html&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>ℹ The googledrive package is using a cached token for 'giorg024@umn.edu'.</code></pre>
+<pre><code>Auto-refreshing stale OAuth token.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ A Drive file already exists at this path. Calling `drive_update()`.</code></pre>
@@ -200,10 +188,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output cell-output-stderr">
 <pre><code>• 'sepsis_data.csv' &lt;id: 1giyI7visQtm8V_sAt3N_AEuAvH9LYhmy&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">### note for future: I had to delete '?usp=sharing' from the end of the folder path in order for this to work</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the file permissions so anyone can download this file.</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>sepsis_file <span class="sc">%&gt;%</span> <span class="fu">drive_share_anyone</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">### note for future: I had to delete '?usp=sharing' from the end of the folder path in order for this to work</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the file permissions so anyone can download this file.</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>sepsis_file <span class="sc">%&gt;%</span> <span class="fu">drive_share_anyone</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Permissions updated:</code></pre>
 </div>
@@ -221,22 +209,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Making the HTML ICU sepsis status report</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Step 1: getting the data from google drive</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Calling drive_deauth() prevents R from trying to authenticate via a browser</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="do">## This is needed to make the GitHub Action work</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_deauth</span>()</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>file_link <span class="ot">&lt;-</span> <span class="st">"https://drive.google.com/file/d/1giyI7visQtm8V_sAt3N_AEuAvH9LYhmy/view?usp=share_link"</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="do">## All data up until now</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">updateData</span>(file_link)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Making the HTML ICU sepsis status report</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Step 1: getting the data from google drive</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Calling drive_deauth() prevents R from trying to authenticate via a browser</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">## This is needed to make the GitHub Action work</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">drive_deauth</span>()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>file_link <span class="ot">&lt;-</span> <span class="st">"https://drive.google.com/file/d/1giyI7visQtm8V_sAt3N_AEuAvH9LYhmy/view?usp=share_link"</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">## All data up until now</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">updateData</span>(file_link)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>No encoding supplied: defaulting to UTF-8.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 1768 Columns: 7
+<pre><code>Rows: 1991 Columns: 7
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr  (1): PatientID
@@ -246,88 +234,88 @@ dttm (1): obsTime
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Include only most recent data</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>most_recent_data <span class="ot">&lt;-</span> new_data <span class="sc">%&gt;%</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PatientID) <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(obsTime <span class="sc">==</span> <span class="fu">max</span>(obsTime)) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="do">### Step 2: make table of current sepsis patients with their most recent vitals</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>CurrentSepsisTable <span class="ot">&lt;-</span> most_recent_data <span class="sc">%&gt;%</span> </span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SepsisLabel <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(PatientID, HR, Temp, Resp)) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Sepsis Patients' Current Status"</span>,</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"data updated every hour"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">PatientID =</span> <span class="st">"Patient ID"</span>,</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">HR =</span> <span class="st">"Heart Rate"</span>,</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">Temp =</span> <span class="st">"Body Temperature"</span>,</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">Resp =</span> <span class="st">"Respirations"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align=</span><span class="st">"center"</span>)</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="do">### Step 3: make plots for all patients who have sepsis that show their vital signs history</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Heart Rate (bpm)"</span> <span class="ot">=</span> <span class="st">"darkred"</span>,</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Temperature (C)"</span> <span class="ot">=</span> <span class="st">"darkblue"</span>,</span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Respiratory Rate (bpm)"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>)</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>VitalsPlots <span class="ot">&lt;-</span> new_data <span class="sc">%&gt;%</span> </span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PatientID) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">sum</span>(SepsisLabel) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>ICULOS)) <span class="sc">+</span></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>HR, <span class="at">color=</span><span class="st">"Heart Rate (bpm)"</span>), <span class="at">linewidth=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Temp, <span class="at">color=</span><span class="st">"Temperature (C)"</span>), <span class="at">linewidth=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Resp, <span class="at">color=</span><span class="st">"Respiratory Rate (bpm)"</span>), <span class="at">linewidth=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>PatientID) <span class="sc">+</span></span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hours Since Admission"</span>,</span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Vital Sign Value"</span>,</span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Vital Signs Trends for Current Sepsis Patients"</span>,</span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Legend"</span>) <span class="sc">+</span></span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> colors) <span class="sc">+</span></span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a><span class="do">### Step 4: make a table showing the change in measurements between the last two measurements for all patients</span></span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a><span class="co"># this should look kind of like the first table but with some data wrangling beforehand</span></span>
-<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a><span class="co">#new_data has all info up until now, so that's probably the most useful</span></span>
-<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a>ChangeTable <span class="ot">&lt;-</span> new_data <span class="sc">%&gt;%</span> </span>
-<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PatientID) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HRchange =</span> HR <span class="sc">-</span> <span class="fu">lag</span>(HR),</span>
-<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a>         <span class="at">TEMPchange =</span> Temp <span class="sc">-</span> <span class="fu">lag</span>(Temp),</span>
-<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a>         <span class="at">RESPchange =</span> Resp <span class="sc">-</span> <span class="fu">lag</span>(Resp)) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PatientID) <span class="sc">%&gt;%</span></span>
-<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(obsTime <span class="sc">==</span> <span class="fu">max</span>(obsTime)) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(PatientID, HRchange, TEMPchange, RESPchange)) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb20-64"><a href="#cb20-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Vital Sign Values, Change Since Last Measurement"</span>,</span>
-<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"(all patients)"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">PatientID =</span> <span class="st">"Patient ID"</span>,</span>
-<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a>             <span class="at">HRchange =</span> <span class="st">"Change in Heart Rate"</span>,</span>
-<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a>             <span class="at">TEMPchange =</span> <span class="st">"Change in Body Temperature"</span>,</span>
-<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a>             <span class="at">RESPchange =</span> <span class="st">"Change in Respiratory Rate"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align=</span><span class="st">"center"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Include only most recent data</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>most_recent_data <span class="ot">&lt;-</span> new_data <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PatientID) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(obsTime <span class="sc">==</span> <span class="fu">max</span>(obsTime)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="do">### Step 2: make table of current sepsis patients with their most recent vitals</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>CurrentSepsisTable <span class="ot">&lt;-</span> most_recent_data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SepsisLabel <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(PatientID, HR, Temp, Resp)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Sepsis Patients' Current Status"</span>,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"data updated every hour"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">PatientID =</span> <span class="st">"Patient ID"</span>,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">HR =</span> <span class="st">"Heart Rate"</span>,</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">Temp =</span> <span class="st">"Body Temperature"</span>,</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">Resp =</span> <span class="st">"Respirations"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align=</span><span class="st">"center"</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="do">### Step 3: make plots for all patients who have sepsis that show their vital signs history</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Heart Rate (bpm)"</span> <span class="ot">=</span> <span class="st">"darkred"</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Temperature (C)"</span> <span class="ot">=</span> <span class="st">"darkblue"</span>,</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Respiratory Rate (bpm)"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>)</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>VitalsPlots <span class="ot">&lt;-</span> new_data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PatientID) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">sum</span>(SepsisLabel) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>ICULOS)) <span class="sc">+</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>HR, <span class="at">color=</span><span class="st">"Heart Rate (bpm)"</span>), <span class="at">linewidth=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Temp, <span class="at">color=</span><span class="st">"Temperature (C)"</span>), <span class="at">linewidth=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Resp, <span class="at">color=</span><span class="st">"Respiratory Rate (bpm)"</span>), <span class="at">linewidth=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>PatientID) <span class="sc">+</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hours Since Admission"</span>,</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Vital Sign Value"</span>,</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Vital Signs Trends for Current Sepsis Patients"</span>,</span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Legend"</span>) <span class="sc">+</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> colors) <span class="sc">+</span></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="do">### Step 4: make a table showing the change in measurements between the last two measurements for all patients</span></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="co"># this should look kind of like the first table but with some data wrangling beforehand</span></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="co">#new_data has all info up until now, so that's probably the most useful</span></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>ChangeTable <span class="ot">&lt;-</span> new_data <span class="sc">%&gt;%</span> </span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PatientID) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HRchange =</span> HR <span class="sc">-</span> <span class="fu">lag</span>(HR),</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>         <span class="at">TEMPchange =</span> Temp <span class="sc">-</span> <span class="fu">lag</span>(Temp),</span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>         <span class="at">RESPchange =</span> Resp <span class="sc">-</span> <span class="fu">lag</span>(Resp)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PatientID) <span class="sc">%&gt;%</span></span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(obsTime <span class="sc">==</span> <span class="fu">max</span>(obsTime)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(PatientID, HRchange, TEMPchange, RESPchange)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Vital Sign Values, Change Since Last Measurement"</span>,</span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"(all patients)"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">PatientID =</span> <span class="st">"Patient ID"</span>,</span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>             <span class="at">HRchange =</span> <span class="st">"Change in Heart Rate"</span>,</span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>             <span class="at">TEMPchange =</span> <span class="st">"Change in Body Temperature"</span>,</span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>             <span class="at">RESPchange =</span> <span class="st">"Change in Respiratory Rate"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align=</span><span class="st">"center"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>last updated: 2023-04-07 00:08:36</p>
+<p>last updated: 2023-04-09 13:32:33</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>CurrentSepsisTable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>CurrentSepsisTable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="gfftcqphpf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="btxudkkyku" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-:where(#gfftcqphpf) .gt_table {
+:where(#btxudkkyku) .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -352,7 +340,7 @@ dttm (1): obsTime
   border-left-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_heading {
+:where(#btxudkkyku) .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -364,7 +352,7 @@ dttm (1): obsTime
   border-right-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_title {
+:where(#btxudkkyku) .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -376,7 +364,7 @@ dttm (1): obsTime
   border-bottom-width: 0;
 }
 
-:where(#gfftcqphpf) .gt_subtitle {
+:where(#btxudkkyku) .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -388,13 +376,13 @@ dttm (1): obsTime
   border-top-width: 0;
 }
 
-:where(#gfftcqphpf) .gt_bottom_border {
+:where(#btxudkkyku) .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_col_headings {
+:where(#btxudkkyku) .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -409,7 +397,7 @@ dttm (1): obsTime
   border-right-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_col_heading {
+:where(#btxudkkyku) .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -429,7 +417,7 @@ dttm (1): obsTime
   overflow-x: hidden;
 }
 
-:where(#gfftcqphpf) .gt_column_spanner_outer {
+:where(#btxudkkyku) .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -441,15 +429,15 @@ dttm (1): obsTime
   padding-right: 4px;
 }
 
-:where(#gfftcqphpf) .gt_column_spanner_outer:first-child {
+:where(#btxudkkyku) .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#gfftcqphpf) .gt_column_spanner_outer:last-child {
+:where(#btxudkkyku) .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#gfftcqphpf) .gt_column_spanner {
+:where(#btxudkkyku) .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -461,7 +449,7 @@ dttm (1): obsTime
   width: 100%;
 }
 
-:where(#gfftcqphpf) .gt_group_heading {
+:where(#btxudkkyku) .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -486,7 +474,7 @@ dttm (1): obsTime
   vertical-align: middle;
 }
 
-:where(#gfftcqphpf) .gt_empty_group_heading {
+:where(#btxudkkyku) .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -501,15 +489,15 @@ dttm (1): obsTime
   vertical-align: middle;
 }
 
-:where(#gfftcqphpf) .gt_from_md > :first-child {
+:where(#btxudkkyku) .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#gfftcqphpf) .gt_from_md > :last-child {
+:where(#btxudkkyku) .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#gfftcqphpf) .gt_row {
+:where(#btxudkkyku) .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -528,7 +516,7 @@ dttm (1): obsTime
   overflow-x: hidden;
 }
 
-:where(#gfftcqphpf) .gt_stub {
+:where(#btxudkkyku) .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -541,7 +529,7 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#gfftcqphpf) .gt_stub_row_group {
+:where(#btxudkkyku) .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -555,11 +543,11 @@ dttm (1): obsTime
   vertical-align: top;
 }
 
-:where(#gfftcqphpf) .gt_row_group_first td {
+:where(#btxudkkyku) .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#gfftcqphpf) .gt_summary_row {
+:where(#btxudkkyku) .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -569,16 +557,16 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#gfftcqphpf) .gt_first_summary_row {
+:where(#btxudkkyku) .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_first_summary_row.thick {
+:where(#btxudkkyku) .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#gfftcqphpf) .gt_last_summary_row {
+:where(#btxudkkyku) .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -588,7 +576,7 @@ dttm (1): obsTime
   border-bottom-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_grand_summary_row {
+:where(#btxudkkyku) .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -598,7 +586,7 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#gfftcqphpf) .gt_first_grand_summary_row {
+:where(#btxudkkyku) .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -608,11 +596,11 @@ dttm (1): obsTime
   border-top-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_striped {
+:where(#btxudkkyku) .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#gfftcqphpf) .gt_table_body {
+:where(#btxudkkyku) .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -621,7 +609,7 @@ dttm (1): obsTime
   border-bottom-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_footnotes {
+:where(#btxudkkyku) .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -635,7 +623,7 @@ dttm (1): obsTime
   border-right-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_footnote {
+:where(#btxudkkyku) .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -644,7 +632,7 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#gfftcqphpf) .gt_sourcenotes {
+:where(#btxudkkyku) .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -658,7 +646,7 @@ dttm (1): obsTime
   border-right-color: #D3D3D3;
 }
 
-:where(#gfftcqphpf) .gt_sourcenote {
+:where(#btxudkkyku) .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -666,64 +654,64 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#gfftcqphpf) .gt_left {
+:where(#btxudkkyku) .gt_left {
   text-align: left;
 }
 
-:where(#gfftcqphpf) .gt_center {
+:where(#btxudkkyku) .gt_center {
   text-align: center;
 }
 
-:where(#gfftcqphpf) .gt_right {
+:where(#btxudkkyku) .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#gfftcqphpf) .gt_font_normal {
+:where(#btxudkkyku) .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#gfftcqphpf) .gt_font_bold {
+:where(#btxudkkyku) .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#gfftcqphpf) .gt_font_italic {
+:where(#btxudkkyku) .gt_font_italic {
   font-style: italic;
 }
 
-:where(#gfftcqphpf) .gt_super {
+:where(#btxudkkyku) .gt_super {
   font-size: 65%;
 }
 
-:where(#gfftcqphpf) .gt_footnote_marks {
+:where(#btxudkkyku) .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-:where(#gfftcqphpf) .gt_asterisk {
+:where(#btxudkkyku) .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#gfftcqphpf) .gt_indent_1 {
+:where(#btxudkkyku) .gt_indent_1 {
   text-indent: 5px;
 }
 
-:where(#gfftcqphpf) .gt_indent_2 {
+:where(#btxudkkyku) .gt_indent_2 {
   text-indent: 10px;
 }
 
-:where(#gfftcqphpf) .gt_indent_3 {
+:where(#btxudkkyku) .gt_indent_3 {
   text-indent: 15px;
 }
 
-:where(#gfftcqphpf) .gt_indent_4 {
+:where(#btxudkkyku) .gt_indent_4 {
   text-indent: 20px;
 }
 
-:where(#gfftcqphpf) .gt_indent_5 {
+:where(#btxudkkyku) .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -745,10 +733,6 @@ dttm (1): obsTime
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_center">000616</td>
-<td class="gt_row gt_center">84</td>
-<td class="gt_row gt_center">37.8</td>
-<td class="gt_row gt_center">16</td></tr>
     <tr><td class="gt_row gt_center">007678</td>
 <td class="gt_row gt_center">61</td>
 <td class="gt_row gt_center">NA</td>
@@ -761,21 +745,21 @@ dttm (1): obsTime
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>VitalsPlots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>VitalsPlots</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="SepsisMonitor_Report_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ChangeTable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ChangeTable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="dsupmrsqcx" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="owqmdhjtcl" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-:where(#dsupmrsqcx) .gt_table {
+:where(#owqmdhjtcl) .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -800,7 +784,7 @@ dttm (1): obsTime
   border-left-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_heading {
+:where(#owqmdhjtcl) .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -812,7 +796,7 @@ dttm (1): obsTime
   border-right-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_title {
+:where(#owqmdhjtcl) .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -824,7 +808,7 @@ dttm (1): obsTime
   border-bottom-width: 0;
 }
 
-:where(#dsupmrsqcx) .gt_subtitle {
+:where(#owqmdhjtcl) .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -836,13 +820,13 @@ dttm (1): obsTime
   border-top-width: 0;
 }
 
-:where(#dsupmrsqcx) .gt_bottom_border {
+:where(#owqmdhjtcl) .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_col_headings {
+:where(#owqmdhjtcl) .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -857,7 +841,7 @@ dttm (1): obsTime
   border-right-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_col_heading {
+:where(#owqmdhjtcl) .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -877,7 +861,7 @@ dttm (1): obsTime
   overflow-x: hidden;
 }
 
-:where(#dsupmrsqcx) .gt_column_spanner_outer {
+:where(#owqmdhjtcl) .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -889,15 +873,15 @@ dttm (1): obsTime
   padding-right: 4px;
 }
 
-:where(#dsupmrsqcx) .gt_column_spanner_outer:first-child {
+:where(#owqmdhjtcl) .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-:where(#dsupmrsqcx) .gt_column_spanner_outer:last-child {
+:where(#owqmdhjtcl) .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-:where(#dsupmrsqcx) .gt_column_spanner {
+:where(#owqmdhjtcl) .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -909,7 +893,7 @@ dttm (1): obsTime
   width: 100%;
 }
 
-:where(#dsupmrsqcx) .gt_group_heading {
+:where(#owqmdhjtcl) .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -934,7 +918,7 @@ dttm (1): obsTime
   vertical-align: middle;
 }
 
-:where(#dsupmrsqcx) .gt_empty_group_heading {
+:where(#owqmdhjtcl) .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -949,15 +933,15 @@ dttm (1): obsTime
   vertical-align: middle;
 }
 
-:where(#dsupmrsqcx) .gt_from_md > :first-child {
+:where(#owqmdhjtcl) .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-:where(#dsupmrsqcx) .gt_from_md > :last-child {
+:where(#owqmdhjtcl) .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-:where(#dsupmrsqcx) .gt_row {
+:where(#owqmdhjtcl) .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -976,7 +960,7 @@ dttm (1): obsTime
   overflow-x: hidden;
 }
 
-:where(#dsupmrsqcx) .gt_stub {
+:where(#owqmdhjtcl) .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -989,7 +973,7 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#dsupmrsqcx) .gt_stub_row_group {
+:where(#owqmdhjtcl) .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1003,11 +987,11 @@ dttm (1): obsTime
   vertical-align: top;
 }
 
-:where(#dsupmrsqcx) .gt_row_group_first td {
+:where(#owqmdhjtcl) .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-:where(#dsupmrsqcx) .gt_summary_row {
+:where(#owqmdhjtcl) .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1017,16 +1001,16 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#dsupmrsqcx) .gt_first_summary_row {
+:where(#owqmdhjtcl) .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_first_summary_row.thick {
+:where(#owqmdhjtcl) .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-:where(#dsupmrsqcx) .gt_last_summary_row {
+:where(#owqmdhjtcl) .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1036,7 +1020,7 @@ dttm (1): obsTime
   border-bottom-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_grand_summary_row {
+:where(#owqmdhjtcl) .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1046,7 +1030,7 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#dsupmrsqcx) .gt_first_grand_summary_row {
+:where(#owqmdhjtcl) .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1056,11 +1040,11 @@ dttm (1): obsTime
   border-top-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_striped {
+:where(#owqmdhjtcl) .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-:where(#dsupmrsqcx) .gt_table_body {
+:where(#owqmdhjtcl) .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1069,7 +1053,7 @@ dttm (1): obsTime
   border-bottom-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_footnotes {
+:where(#owqmdhjtcl) .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1083,7 +1067,7 @@ dttm (1): obsTime
   border-right-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_footnote {
+:where(#owqmdhjtcl) .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1092,7 +1076,7 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#dsupmrsqcx) .gt_sourcenotes {
+:where(#owqmdhjtcl) .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1106,7 +1090,7 @@ dttm (1): obsTime
   border-right-color: #D3D3D3;
 }
 
-:where(#dsupmrsqcx) .gt_sourcenote {
+:where(#owqmdhjtcl) .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1114,64 +1098,64 @@ dttm (1): obsTime
   padding-right: 5px;
 }
 
-:where(#dsupmrsqcx) .gt_left {
+:where(#owqmdhjtcl) .gt_left {
   text-align: left;
 }
 
-:where(#dsupmrsqcx) .gt_center {
+:where(#owqmdhjtcl) .gt_center {
   text-align: center;
 }
 
-:where(#dsupmrsqcx) .gt_right {
+:where(#owqmdhjtcl) .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-:where(#dsupmrsqcx) .gt_font_normal {
+:where(#owqmdhjtcl) .gt_font_normal {
   font-weight: normal;
 }
 
-:where(#dsupmrsqcx) .gt_font_bold {
+:where(#owqmdhjtcl) .gt_font_bold {
   font-weight: bold;
 }
 
-:where(#dsupmrsqcx) .gt_font_italic {
+:where(#owqmdhjtcl) .gt_font_italic {
   font-style: italic;
 }
 
-:where(#dsupmrsqcx) .gt_super {
+:where(#owqmdhjtcl) .gt_super {
   font-size: 65%;
 }
 
-:where(#dsupmrsqcx) .gt_footnote_marks {
+:where(#owqmdhjtcl) .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-:where(#dsupmrsqcx) .gt_asterisk {
+:where(#owqmdhjtcl) .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-:where(#dsupmrsqcx) .gt_indent_1 {
+:where(#owqmdhjtcl) .gt_indent_1 {
   text-indent: 5px;
 }
 
-:where(#dsupmrsqcx) .gt_indent_2 {
+:where(#owqmdhjtcl) .gt_indent_2 {
   text-indent: 10px;
 }
 
-:where(#dsupmrsqcx) .gt_indent_3 {
+:where(#owqmdhjtcl) .gt_indent_3 {
   text-indent: 15px;
 }
 
-:where(#dsupmrsqcx) .gt_indent_4 {
+:where(#owqmdhjtcl) .gt_indent_4 {
   text-indent: 20px;
 }
 
-:where(#dsupmrsqcx) .gt_indent_5 {
+:where(#owqmdhjtcl) .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1193,139 +1177,163 @@ dttm (1): obsTime
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td class="gt_row gt_center">000112</td>
+    <tr><td class="gt_row gt_center">000093</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">000576</td>
+    <tr><td class="gt_row gt_center">000196</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">000616</td>
+    <tr><td class="gt_row gt_center">000367</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">000696</td>
+    <tr><td class="gt_row gt_center">000416</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">000921</td>
+    <tr><td class="gt_row gt_center">000579</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">000963</td>
+    <tr><td class="gt_row gt_center">000600</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">000964</td>
+    <tr><td class="gt_row gt_center">001077</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">001040</td>
+    <tr><td class="gt_row gt_center">001216</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">001098</td>
+    <tr><td class="gt_row gt_center">001526</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">001139</td>
+    <tr><td class="gt_row gt_center">001751</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">001477</td>
+    <tr><td class="gt_row gt_center">001762</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">001958</td>
+    <tr><td class="gt_row gt_center">002106</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">002689</td>
+    <tr><td class="gt_row gt_center">002598</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">003019</td>
+    <tr><td class="gt_row gt_center">002608</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">003203</td>
+    <tr><td class="gt_row gt_center">002759</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">003209</td>
+    <tr><td class="gt_row gt_center">002949</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">003318</td>
+    <tr><td class="gt_row gt_center">003711</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">003490</td>
+    <tr><td class="gt_row gt_center">003717</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">004144</td>
+    <tr><td class="gt_row gt_center">003920</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">004241</td>
+    <tr><td class="gt_row gt_center">003972</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">004351</td>
+    <tr><td class="gt_row gt_center">004226</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">004456</td>
+    <tr><td class="gt_row gt_center">004401</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">004807</td>
+    <tr><td class="gt_row gt_center">004652</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">005376</td>
+    <tr><td class="gt_row gt_center">004708</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">005456</td>
+    <tr><td class="gt_row gt_center">005011</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">005580</td>
+    <tr><td class="gt_row gt_center">005063</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">005827</td>
+    <tr><td class="gt_row gt_center">005133</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">006381</td>
+    <tr><td class="gt_row gt_center">005640</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">006482</td>
+    <tr><td class="gt_row gt_center">005788</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">006550</td>
+    <tr><td class="gt_row gt_center">005815</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">006882</td>
+    <tr><td class="gt_row gt_center">005905</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">006925</td>
+    <tr><td class="gt_row gt_center">005934</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">007492</td>
+    <tr><td class="gt_row gt_center">005979</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">007500</td>
+    <tr><td class="gt_row gt_center">005983</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td></tr>
+    <tr><td class="gt_row gt_center">006097</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td></tr>
+    <tr><td class="gt_row gt_center">006199</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td></tr>
+    <tr><td class="gt_row gt_center">006460</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td></tr>
+    <tr><td class="gt_row gt_center">006466</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td></tr>
+    <tr><td class="gt_row gt_center">006608</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td>
+<td class="gt_row gt_center">NA</td></tr>
+    <tr><td class="gt_row gt_center">007510</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
@@ -1333,63 +1341,39 @@ dttm (1): obsTime
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">007694</td>
+    <tr><td class="gt_row gt_center">007757</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">008021</td>
+    <tr><td class="gt_row gt_center">007998</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">008229</td>
+    <tr><td class="gt_row gt_center">008164</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">008322</td>
+    <tr><td class="gt_row gt_center">008812</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">008332</td>
+    <tr><td class="gt_row gt_center">008971</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">008496</td>
+    <tr><td class="gt_row gt_center">009206</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">008627</td>
+    <tr><td class="gt_row gt_center">009283</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">008730</td>
+    <tr><td class="gt_row gt_center">009461</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">008865</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">009077</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">009243</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">009304</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">009603</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">009720</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td>
-<td class="gt_row gt_center">NA</td></tr>
-    <tr><td class="gt_row gt_center">009957</td>
+    <tr><td class="gt_row gt_center">009620</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td>
 <td class="gt_row gt_center">NA</td></tr>

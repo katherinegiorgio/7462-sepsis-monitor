@@ -28,6 +28,9 @@ df <- makeSepsisDataset()
 
 ```{r task2}
 #| eval: false
+#| warning: false
+#| message: false
+#| echo: false
 
 ### Task 1: Speed reading
 # fread with 50 people (this is the function default) = 10.61 s
@@ -62,13 +65,16 @@ toc()
 ```
 
 ```{r task3}
+#| warning: false
+#| message: false
+#| echo: false
 
 ### Uploading to Google Drive
 
 # We have to write the file to disk first, then upload it
 df %>% write_csv("sepsis_data_temp.csv")
 
-drive_deauth()
+#drive_deauth() not instructed to put this here
 # Uploading happens here
 sepsis_file <- drive_put(media = "sepsis_data_temp.csv", 
           path = "https://drive.google.com/drive/folders/1bw6XgCMdGh1DyMIGOm1mPTTDP5rtny5W",
@@ -82,6 +88,9 @@ sepsis_file %>% drive_share_anyone()
 
 
 ```{r task4}
+#| warning: false
+#| message: false
+#| echo: false
 
 ### Making the HTML ICU sepsis status report
 
@@ -170,15 +179,23 @@ ChangeTable <- new_data %>%
 last updated: `r Sys.time()`  
   
 ```{r}
+#| warning: false
+#| message: false
+#| echo: false
 CurrentSepsisTable
 ```
 
 ```{r}
 #| warning: false
+#| message: false
+#| echo: false
 
 VitalsPlots
 ```
 
 ```{r}
+#| warning: false
+#| message: false
+#| echo: false
 ChangeTable
 ```
