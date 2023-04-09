@@ -19,8 +19,9 @@ library(gt)
 source("sepsis_monitor_functions.R")
 
 ## Authenticate to Drive, using a token stored in an environ variable
+api_key <- Sys.getenv("GOOGLEDRIVE_API")
 drive_auth(email = "giorg024@umn.edu",
-          token = Sys.getenv("GOOGLEDRIVE_API"))
+          token = api_key)
 
 df <- makeSepsisDataset()
 ```
@@ -67,7 +68,7 @@ toc()
 # We have to write the file to disk first, then upload it
 df %>% write_csv("sepsis_data_temp.csv")
 
-#drive_deauth()
+drive_deauth()
 # Uploading happens here
 sepsis_file <- drive_put(media = "sepsis_data_temp.csv", 
           path = "https://drive.google.com/drive/folders/1bw6XgCMdGh1DyMIGOm1mPTTDP5rtny5W",
@@ -88,7 +89,7 @@ sepsis_file %>% drive_share_anyone()
 
 ## Calling drive_deauth() prevents R from trying to authenticate via a browser
 ## This is needed to make the GitHub Action work
-#drive_deauth()
+drive_deauth()
 file_link <- "https://drive.google.com/file/d/1giyI7visQtm8V_sAt3N_AEuAvH9LYhmy/view?usp=share_link"
 
 ## All data up until now
