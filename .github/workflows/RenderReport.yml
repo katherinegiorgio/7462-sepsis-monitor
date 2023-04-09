@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron:  '50 21 * * *'
+    - cron:  '20 * * * *'
   push:
     branches: main
   workflow_dispatch:
@@ -39,7 +39,7 @@ jobs:
                any::lubridate
                any::forcats
                any::tidyverse
-               any:data.table
+               any::data.table
                any::lubridate
                any::googledrive
                any::gt
